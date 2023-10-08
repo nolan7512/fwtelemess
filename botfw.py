@@ -70,4 +70,4 @@ while True:
     for channel in listchannel:
         for message in client.search_messages(query="*", channel=channel):
             forward_message(message)
-    bot.polling()
+    #bot.polling()
