@@ -1,3 +1,2 @@
-slack
-telebot
 slack_sdk
+telebot
