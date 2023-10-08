@@ -23,7 +23,7 @@ channel =  os.environ.get("MYCHANNEL")
 forward_message_is_running = False
 
 
-listchannel = [int(i) for i in channels.split()]
+listchannel = list(i for i in channels.split(","))
 
 client = WebClient(token=slacktoken)
 
