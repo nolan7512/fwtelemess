@@ -1,2 +1,3 @@
 slack
 telebot
+-U slack
