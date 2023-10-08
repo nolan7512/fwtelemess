@@ -39,23 +39,23 @@ def forward_message(event):
     # Gửi message đến channel cần forward
     if (forward_message_is_running is True):
         client.chat.postMessage(channel=channel, text=text, channel_id=channel_id, user_id=user_id)
-@bot.message_handler(commands=['startbotfw'])
-def start_forward(message):
-    # Bật hàm forward message
-    global forward_message_is_running
-    forward_message_is_running = True
+# @bot.message_handler(commands=['startbotfw'])
+# def start_forward(message):
+#     # Bật hàm forward message
+#     global forward_message_is_running
+#     forward_message_is_running = True
 
-    # Gửi thông báo đến người dùng
-    bot.send_message(message.chat.id, "Bot forward message đã được khởi động.")
+#     # Gửi thông báo đến người dùng
+#     bot.send_message(message.chat.id, "Bot forward message đã được khởi động.")
 
-@bot.message_handler(commands=['stopbotfw'])
-def stop_forward(message):
-    # Tắt hàm forward message
-    global forward_message_is_running
-    forward_message_is_running = False
+# @bot.message_handler(commands=['stopbotfw'])
+# def stop_forward(message):
+#     # Tắt hàm forward message
+#     global forward_message_is_running
+#     forward_message_is_running = False
 
-    # Gửi thông báo đến người dùng
-    bot.send_message(message.chat.id, "Bot forward message đã được dừng.")
+#     # Gửi thông báo đến người dùng
+#     bot.send_message(message.chat.id, "Bot forward message đã được dừng.")
 
 # slack_token = os.environ["SLACK_API_TOKEN"]
 # rtm_client = RTMClient(
