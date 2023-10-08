@@ -7,7 +7,7 @@ Created on Sun Oct  8 14:08:49 2023
 import os
 import telebot
 from slack_sdk import WebClient
-#from slack_sdk.rtm_v2 import RTMClient
+from slack_sdk.rtm_v2 import RTMClient
 
 # Tạo client Slack
 slacktoken = os.environ["SLACK_BOT_TOKEN"]
@@ -68,6 +68,6 @@ def stop_forward(message):
 # Chạy bot
 while True:
     for channel in listchannel:
-        for event in client.iter_messages(channel):
-          forward_message(event)
+        for message in client.search_messages(query="*", channel=channel):
+            forward_message(message)
     bot.polling()
