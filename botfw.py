@@ -58,6 +58,5 @@ def stop_forward(message):
 # Chạy bot
 while True:
     for channel in listchannel:
-       client.listen("message", forward_message, channel=channel)
-    client.loop()
+       client.rtm_connect(on_message=forward_message, channel=channel)
     bot.polling()
