@@ -5,11 +5,11 @@ Created on Sun Oct  8 14:08:49 2023
 @author: Nolan
 """
 import os
-import slack
 import telebot
+from slack_sdk import WebClient
 
 # Tạo client Slack
-client = slack.WebClient(os.environ["SLACK_BOT_TOKEN"])
+slacktoken = os.environ["SLACK_BOT_TOKEN"]
 
 # Tạo bot Telegram
 bot = telebot.TeleBot(os.environ["TELEGRAM_BOT_TOKEN"])
@@ -25,6 +25,8 @@ forward_message_is_running = False
 
 listchannel = [int(i) for i in channels.split()]
 
+client = WebClient(token=slacktoken)
+
 # Hàm forward message
 def forward_message(event):
     # Lấy thông tin message
@@ -34,9 +36,8 @@ def forward_message(event):
 
     # Gửi message đến channel cần forward
     if (forward_message_is_running is True):
-        client.api_call("chat.postMessage", channel=channel, text=text, channel_id=channel_id, user_id=user_id)
-
-@bot.message_handler(commands=['start'])
+        client.chat.postMessage(channel=channel, text=text, channel_id=channel_id, user_id=user_id)
+@bot.message_handler(commands=['startbotfw'])
 def start_forward(message):
     # Bật hàm forward message
     global forward_message_is_running
@@ -45,7 +46,7 @@ def start_forward(message):
     # Gửi thông báo đến người dùng
     bot.send_message(message.chat.id, "Bot forward message đã được khởi động.")
 
-@bot.message_handler(commands=['stop'])
+@bot.message_handler(commands=['stopbotfw'])
 def stop_forward(message):
     # Tắt hàm forward message
     global forward_message_is_running
