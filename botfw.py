@@ -7,6 +7,7 @@ Created on Sun Oct  8 14:08:49 2023
 import os
 import telebot
 from slack_sdk import WebClient
+#from slack_sdk.rtm_v2 import RTMClient
 
 # Tạo client Slack
 slacktoken = os.environ["SLACK_BOT_TOKEN"]
@@ -27,6 +28,7 @@ listchannel = list(i for i in channels.split(","))
 
 client = WebClient(token=slacktoken)
 
+# @RTMClient.run_on(event="message")
 # Hàm forward message
 def forward_message(event):
     # Lấy thông tin message
@@ -55,8 +57,17 @@ def stop_forward(message):
     # Gửi thông báo đến người dùng
     bot.send_message(message.chat.id, "Bot forward message đã được dừng.")
 
+# slack_token = os.environ["SLACK_API_TOKEN"]
+# rtm_client = RTMClient(
+#   token=slack_token,
+#   connect_method='rtm.start'
+# )
+# rtm_client.start()
+
+
 # Chạy bot
 while True:
     for channel in listchannel:
-       client.rtm_connect(on_message=forward_message, channel=channel)
+        for event in client.iter_messages(channel):
+          forward_message(event)
     bot.polling()
